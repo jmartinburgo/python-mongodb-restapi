@@ -4,15 +4,24 @@ from flask_pymongo import PyMongo
 
 app= Flask(__name__)
 
-app.config['MONGO_URI']='mongodb://mongo:X4JWnfZecc6WlIsDHSuN@containers-us-west-156.railway.app:5573/pythonmongodb'
+app.config['MONGO_URI']='mongodb://localhost/pythonmongodb'
 
 mongo=PyMongo(app)
 
 @app.route('/users', methods=['POST'])
 
 def create_users():
-    #Recibiendo datos
-    print(request.json)
+    username= request.json['username']
+    password= request.json['password']
+    email=request.json['email']
+
+    if username and email and password:
+        mongo.db.users.insert(
+            {'username':username, 'email':email, 'password': password}
+        )
+    else:
+        {'message':'received'}
+        
     return {'message':'received'}
 
 if __name__ =="__main__":
