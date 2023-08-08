@@ -66,7 +66,6 @@ def updated_user(id):
         response= jsonify({'message':'User '+ id +' was updated succefully'})
         return response
 
-
 @app.errorhandler(404)
 def not_found(error=None):
     response =jsonify({
